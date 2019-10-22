@@ -1,26 +1,42 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import Today from "./Content/Today";
+import MenuComponent from './Menu/Menu';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import { Layout, Typography } from 'antd';
+
+const { Sider, Content } = Layout;
+const { Title } = Typography;
+
+class App extends React.Component {
+    constructor(props){
+        super(props);
+        this.state = {
+            title: 'Сегодня',
+            content: 'today'
+        }
+    }
+
+    drawContent = () => {
+        if (this.state.content === 'today'){
+            return <div><Today /></div>
+        }
+    }
+
+    render(){
+        return (
+            <Layout>
+                <Sider style={{ minHeight: '100vh', background: '#fff' }}>
+                    <MenuComponent />
+                </Sider>
+                <Content>
+
+                    <Title level={2} style={{paddingLeft: 10, marginTop: 30}}>{this.state.title}</Title>
+                    { this.drawContent() }
+
+                </Content>
+            </Layout>
+        );
+    }
 }
 
 export default App;
